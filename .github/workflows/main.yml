@@ -86,19 +86,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PUBLISH_TOKEN }}
 
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: ./app
           file: ./app/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: |
-            nikp123/filerise-docker:latest
-            nikp123/filerise-docker:${{ steps.ver.outputs.version }}
-          labels: |
-            org.opencontainers.image.title=FileRise
-            org.opencontainers.image.version=${{ steps.ver.outputs.version }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
