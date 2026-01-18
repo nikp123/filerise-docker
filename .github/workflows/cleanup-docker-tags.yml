@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          REPO="error311/filerise-docker"
+          REPO="nikp123/filerise-docker"
 
           # threshold timestamp 15 days ago, in UTC ISO‑8601
           THRESHOLD=$(date -u -d '15 days ago' +%Y-%m-%dT%H:%M:%SZ)
