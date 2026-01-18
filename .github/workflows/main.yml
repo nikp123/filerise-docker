@@ -37,7 +37,7 @@ jobs:
       - name: Checkout FileRise code
         uses: actions/checkout@v4
         with:
-          repository: error311/FileRise
+          repository: nikp123/FileRise
           token: ${{ secrets.GITHUB_TOKEN }}
           path: app
 
@@ -89,8 +89,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            error311/filerise-docker:latest
-            error311/filerise-docker:${{ steps.ver.outputs.version }}
+            nikp123/filerise-docker:latest
+            nikp123/filerise-docker:${{ steps.ver.outputs.version }}
           labels: |
             org.opencontainers.image.title=FileRise
             org.opencontainers.image.version=${{ steps.ver.outputs.version }}
